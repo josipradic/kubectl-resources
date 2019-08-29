@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+  
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: apple-service
+          servicePort: 5678
+        path: /apple
+      - backend:
+          serviceName: banana-service
+          servicePort: 5678
+        path: /banana
+  - host: apple.192.168.1.158.xip.io
+    http:
+      paths:
+      - backend:
+          serviceName: apple-service
+          servicePort: 5678
+  - host: banana.192.168.1.158.xip.io
+    http:
+      paths:
+      - backend:
+          serviceName: banana-service
+          servicePort: 5678
